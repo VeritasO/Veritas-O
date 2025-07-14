@@ -3,7 +3,7 @@
 **Version:** v5.5.0-CODIFIED  
 **Kernel:** OmniMemory v4.0 + CVT Timekeeper  
 **Mission:** Fairness Across Time | Restoration Before Retribution  
-**Maintainer:** [@yourusername](https://github.com/yourusername)
+**Maintainer:** [@VeritasO](https://github.com/yourusername)
 
 ---
 
