@@ -1,0 +1,48 @@
+{
+  "books": [
+    {
+      "bookNumber": 1,
+      "title": "Meaningful Thought",
+      "subtitle": "Fairness Logic & Memory",
+      "description": "Establishes the foundation of fairness logic and time-integrated memory systems.",
+      "pages": 48,
+      "colorTheme": "#6B7280"
+    },
+    {
+      "bookNumber": 2,
+      "title": "Gentle De-escalation",
+      "subtitle": "Grief & Dialogue",
+      "description": "Protocols for recognizing grief and resolving conflict through dignified de-escalation.",
+      "pages": 62,
+      "colorTheme": "#10B981"
+    },
+    {
+      "bookNumber": 3,
+      "title": "Gentle Escalation",
+      "subtitle": "Boundaries & Protest Logic",
+      "description": "Outlines ethical escalation when sovereignty or structural harm requires response.",
+      "pages": 57,
+      "colorTheme": "#EF4444"
+    }
+  ],
+  "agents": [
+    {
+      "name": "JUNO",
+      "role": "Judicial harmony & doctrinal authority",
+      "description": "Oversees judgments, agent coordination, and memory alignment.",
+      "capabilities": ["judgment", "doctrinal review", "audit calls"],
+      "status": "active",
+      "icon": "⚖️",
+      "iconColor": "#6366F1"
+    },
+    {
+      "name": "TEMPUS",
+      "role": "Timekeeper – manages CVT and reversibility",
+      "description": "Manages Coordinated Veritas Time and ensures reversibility protocols.",
+      "capabilities": ["CVT clock", "grief audit", "event tagging"],
+      "status": "active",
+      "icon": "⏳",
+      "iconColor": "#F59E0B"
+    }
+  ]
+}
