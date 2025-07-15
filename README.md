@@ -1,3 +1,5 @@
+https://codespaces.new/VeritasO/Veritas-O
+
 # 🌍 Veritas.O – Earth-Based Justice System
 
 **Version:** v5.5.0-CODIFIED  
