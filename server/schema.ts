@@ -123,8 +123,8 @@ export const rituals = pgTable("rituals", {
   performedBy: text("performed_by").notNull(),
   date: timestamp("date").notNull().defaultNow(),
   category: text("category").default("general"),
-  griefTierLinked: griefTierEnum("grief_tier_linked").nullable(),
-  description: text("description").nullable(),
+  griefTierLinked: griefTierEnum("grief_tier_linked").default(null),
+  description: text("description").default(""),
 });
 
 // REFLECTION AUDITS
@@ -143,7 +143,7 @@ export const reflectionAudits = pgTable("reflection_audits", {
 export const sandboxCases = pgTable("sandbox_cases", {
   id: serial("id").primaryKey(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  createdByUserId: integer("created_by_user_id").references(() => users.id).nullable(),
+  createdByUserId: integer("created_by_user_id").references(() => users.id).notNull(false),
   parties: jsonb("parties").notNull(),
   harmDescription: text("harm_description").notNull(),
   griefTier: griefTierEnum("grief_tier").notNull(),

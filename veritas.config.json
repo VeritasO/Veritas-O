@@ -1,12 +1,23 @@
 {
   "system": "Veritas.O",
   "version": "v5.5.0-CODIFIED",
+  "timeEngine": "TEMPUS",
+  "memoryEngine": "OmniMemory v4.0",
   "agents": ["JUNO", "TEMPUS", "AEGIS", "LYRA", "THALEA", "VESTA", "MIRRA", "POLYMNIA"],
   "features": {
     "reflections": true,
     "rituals": true,
     "CVT time": true,
-    "agent tasks": true
+    "agent tasks": true,
+    "markdown viewer": true,
+    "audit trail": true,
+    "export formats": ["JSON", "CSV"]
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@server/*": ["server/*"]
+    }
   }
 }
 

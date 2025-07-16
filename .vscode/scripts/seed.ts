@@ -50,9 +50,27 @@ async function main() {
 
   // --- Ritual Prompts ---
   await db.insert(rituals).values([
-    { tier: "low", prompt: "🌾 Take 3 breaths and name what feels gentle in the grief." },
-    { tier: "medium", prompt: "🕯️ Write a letter to the harmed party expressing recognition." },
-    { tier: "high", prompt: "🌑 Ritual silence: 10 minutes of stillness before writing any response." },
+    {
+      name: "Gentle Breaths",
+      linkedBook: 2,
+      performedBy: "LYRA",
+      tier: "low",
+      prompt: "🌾 Take 3 breaths and name what feels gentle in the grief."
+    },
+    {
+      name: "Recognition Letter",
+      linkedBook: 2,
+      performedBy: "LYRA",
+      tier: "medium",
+      prompt: "🕯️ Write a letter to the harmed party expressing recognition."
+    },
+    {
+      name: "Ritual Silence",
+      linkedBook: 2,
+      performedBy: "LYRA",
+      tier: "high",
+      prompt: "🌑 Ritual silence: 10 minutes of stillness before writing any response."
+    },
   ]);
   console.log("🔥 Rituals seeded.");
 

@@ -6,7 +6,7 @@ import Navigation from "@/components/navigation";
 // Or, if the file is named 'Navigation.tsx' and located elsewhere, adjust the path accordingly:
 // import Navigation from "./Navigation";
 // import Navigation from "../components/Navigation";
-import SearchBar from "@/components/search-bar";
+import SearchBar from "@/components/SearchBar";
 import SystemOverview from "@/components/sections/system-overview";
 import BooksLibrary from "@/components/sections/BooksLibrary";
 import AgentsDirectory from "@/components/sections/agents-directory";
