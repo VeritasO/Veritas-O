@@ -72,9 +72,9 @@ export const rituals = pgTable('rituals', {
 
 export const interactions = pgTable('interactions', {
   id: serial('id').primaryKey(),
-  agentId: integer('agent_id'),
-  content: text('content'),
-  timestamp: timestamp('timestamp', { mode: 'date' }),
+  agentId: integer('agent_id').notNull(),
+  content: text('content').notNull(),
+  timestamp: timestamp('timestamp').notNull().defaultNow(),
 });
 
 export const reflectionAudits = pgTable('reflection_audits', {
@@ -85,15 +85,6 @@ export const reflectionAudits = pgTable('reflection_audits', {
   updatedBy: varchar('updated_by', { length: 64 }).notNull(),
   reason: text('reason'),
   griefTier: varchar('grief_tier', { length: 16 }),
-  timestamp: timestamp('timestamp').notNull().defaultNow(),
-});
-
-
-
-export const interactions = pgTable('interactions', {
-  id: serial('id').primaryKey(),
-  agentId: integer('agent_id').notNull(),
-  content: text('content').notNull(),
   timestamp: timestamp('timestamp').notNull().defaultNow(),
 });
 
@@ -123,8 +114,8 @@ export const insertRitualSchema = pgTable('insert_ritual_schema', {
   performedBy: varchar('performed_by', { length: 64 }).notNull(),
   date: timestamp('date').notNull().defaultNow(),
   category: varchar('category', { length: 32 }).default('general'),
-  griefTierLinked: griefTierEnum('grief_tier_linked').nullable(),
-  description: text('description').nullable(),
+  griefTierLinked: varchar('grief_tier_linked', { length: 16 }).null(),
+  description: text('description').default(null),
 });
 
 export const ritualsByTier = {

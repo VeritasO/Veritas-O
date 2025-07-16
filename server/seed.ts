@@ -9,7 +9,13 @@ async function seedDatabase() {
     console.log("📚 Books seeded.");
 
     console.log("🌱 Seeding Agents...");
-    await db.insert(agents).values(seedData.agents);
+    // Map agent statuses to allowed enum values
+    const allowedStatuses = ["symbolic", "active", "dormant", "retired", "under_review"];
+    const agentsData = seedData.agents.map(agent => ({
+      ...agent,
+      status: allowedStatuses.includes(agent.status) ? agent.status : "active"
+    }));
+    await db.insert(agents).values(agentsData);
     console.log("🧠 Agents seeded.");
 
     console.log("✅ Seed complete.");
