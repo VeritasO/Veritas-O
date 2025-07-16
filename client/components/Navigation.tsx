@@ -1,30 +1,32 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-// If the file is named 'navigation.tsx' (lowercase), update the import:
-import Navigation from "@/components/navigation";
 
-// Or, if the file is named 'Navigation.tsx' and located elsewhere, adjust the path accordingly:
-// import Navigation from "./Navigation";
-// import Navigation from "../components/Navigation";
+// FIX: Use correct import for Navigation component
+import Navigation from "@/components/Navigation";
+
+// FIX: Use PascalCase for all React component imports and verify file names
 import SearchBar from "@/components/SearchBar";
-import SystemOverview from "@/components/sections/system-overview";
+import SystemOverview from "@/components/sections/SystemOverview";
 import BooksLibrary from "@/components/sections/BooksLibrary";
-import AgentsDirectory from "@/components/sections/agents-directory";
-import CVTTimeDisplay from "@/components/sections/cvt-time-display";
-import DoctrineManagement from "@/components/sections/doctrine-management";
-import ReflectionSubmission from "@/components/sections/reflection-submission";
+import AgentsDirectory from "@/components/sections/AgentsDirectory";
+import CVTTimeDisplay from "@/components/sections/CVTTimeDisplay";
+import DoctrineManagement from "@/components/sections/DoctrineManagement";
+import ReflectionSubmission from "@/components/sections/ReflectionSubmission";
 import SystemAnalytics from "@/components/sections/SystemAnalytics";
 import ReflectionAuditPanel from "@/components/ReflectionAuditPanel";
 import SymbolicSuggestions from "@/components/SymbolicSuggestions";
 import ContradictionMonitor from "@/components/ContradictionMonitor";
 import AgentTaskComposer from "@/components/AgentTaskComposer";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/useToast";
 import { apiRequest } from "@/lib/queryClient";
 
 // Optionally, custom hooks if implemented
 import { useAuditLogs } from "@/hooks/useAuditLogs";
 import { useSymbolicSuggestions } from "@/hooks/useSymbolicSuggestions";
 import { useContradictions } from "@/hooks/useContradictions";
+
+// PATCH: Add fallback error boundary for main content
+import { ErrorBoundary } from "react-error-boundary";
 
 export type Section =
   | "intro"
@@ -38,6 +40,14 @@ export type Section =
   | "symbolic"
   | "contradictions"
   | "tasks";
+
+function MainContent({ renderActiveSection }: { renderActiveSection: () => JSX.Element }) {
+  return (
+    <ErrorBoundary fallback={<div className="text-red-600">Something went wrong in this section.</div>}>
+      <div className="animate-fade-in">{renderActiveSection()}</div>
+    </ErrorBoundary>
+  );
+}
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<Section>("intro");
@@ -156,7 +166,7 @@ export default function Home() {
 
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="animate-fade-in">{renderActiveSection()}</div>
+        <MainContent renderActiveSection={renderActiveSection} />
       </main>
 
       {/* Footer */}
