@@ -1,22 +1,28 @@
 import { AlertTriangle } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { useContradictions } from "@/hooks/useContradictions";
 
-export default function ContradictionMonitor({ contradictions }: { contradictions: string[] }) {
-  if (!contradictions.length) return null;
+
+// Removed duplicate ContradictionMonitor implementation
+
+  export default function ContradictionMonitor() {
+  const { data: contradictions, isLoading } = useContradictions();
 
   return (
-    <Card className="bg-red-50 border-l-4 border-red-500">
-      <CardContent className="space-y-2">
-        <div className="flex items-center gap-2">
-          <AlertTriangle className="text-red-600" />
-          <h2 className="text-lg font-bold">Contradictions Detected (MIRRA)</h2>
-        </div>
-        <ul className="list-disc list-inside text-sm text-red-900">
-          {contradictions.map((c, i) => (
-            <li key={i}>{c}</li>
+    <div className="bg-white p-6 rounded shadow mt-6">
+      <h2 className="text-lg font-semibold mb-4">🧩 MIRRA Contradiction Monitor</h2>
+      {isLoading ? (
+        <p>Scanning reflections for contradictions...</p>
+      ) : contradictions?.length === 0 ? (
+        <p className="text-green-600">✅ No contradictions found</p>
+      ) : (
+        <ul className="space-y-2">
+          {contradictions.map((c) => (
+            <li key={c.id} className="border p-3 rounded bg-red-50">
+              <strong>Reflection #{c.reflectionId}:</strong> {c.issue}
+            </li>
           ))}
         </ul>
-      </CardContent>
-    </Card>
+      )}
+    </div>
   );
 }

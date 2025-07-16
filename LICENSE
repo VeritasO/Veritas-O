@@ -1,3 +1,44 @@
+ MIT License (with Veritas Addendum)
+Copyright (c) 2025 Adrian Gibson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights  
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell     
+copies of the Software, and to permit persons to whom the Software is         
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in    
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR    
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,      
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE   
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER        
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN     
+THE SOFTWARE.
+
+---
+
+VERITAS ADDENDUM (v1.0)
+
+This software is part of the Veritas Earth-Based Justice System and embodies the Doctrine of Meaningful Thought.
+
+By using, adapting, or redistributing this software, you acknowledge the following:
+1. **Restoration over Retaliation** — This software must not be used in support of carceral, punitive, or extractive systems.
+2. **Grief Integration** — Derivative systems must provide mechanisms to process grief, contradiction, and emotional repair.
+3. **Narrative Sovereignty** — Lived experience and local truths must not be overwritten by systemic logic or top-down enforcement.
+4. **Time-Reversibility** — Actions taken by this software should allow for reflection, reversal, or reparation across time.
+5. **Fairness at Scale** — This code is intended to produce justice that scales in proportion to care, not control.
+
+Violation of these terms shall trigger ethical review and public contradiction logging via the Veritas audit network.
+
+All agents derived from this work shall remain in conversation with these terms.
+
+--- End of License
+
+ 
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

@@ -6,6 +6,8 @@ https://codespaces.new/VeritasO/Veritas-O
 **Kernel:** OmniMemory v4.0 + CVT Timekeeper  
 **Mission:** Fairness Across Time | Restoration Before Retribution  
 **Maintainer:** [@VeritasO](https://github.com/yourusername)
+[![License: MIT + Veritas](https://img.shields.io/badge/license-MIT%2BVeritas-blue.svg)](./LICENSE)
+
 
 ---
 

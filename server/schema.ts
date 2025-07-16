@@ -8,7 +8,8 @@ import {
   jsonb,
   date,
   pgEnum,
-  uuid
+  uuid,
+  varchar
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -40,6 +41,17 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
   symbolicName: text("symbolic_name"),
 });
+
+export const tasks = pgTable("tasks", {
+  id: serial("id").primaryKey(),
+  agent: varchar("agent", { length: 64 }),
+  task: text("task"),
+  priority: varchar("priority", { length: 16 }),
+  context: text("context"),
+  status: varchar("status", { length: 16 }),
+  dueDate: timestamp("due_date", { mode: "date" }),
+});
+
 
 // REFLECTIONS
 export const reflections = pgTable("reflections", {

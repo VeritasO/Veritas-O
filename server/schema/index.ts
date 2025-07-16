@@ -1,6 +1,9 @@
 // Schema index scaffold
 import { pgTable, serial, varchar, text, timestamp, integer, jsonb } from 'drizzle-orm/pg-core';
 export * from "./doctrine_versions";
+import doctrineRouter from "./routes/doctrine";
+app.use("/api/doctrine", doctrineRouter);
+
 
 
 export const reflections = pgTable('reflections', {
