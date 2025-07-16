@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link, useLocation } from "react-router-dom";
 
 // ✅ Ensure PascalCase and correct folder nesting
 import SearchBar from "@/components/SearchBar";
@@ -130,6 +131,18 @@ export default function Home() {
     }
   };
 
+  const { pathname } = useLocation();
+  const sections = [
+    { path: "/", label: "Home" },
+    { path: "/books", label: "Books" },
+    { path: "/agents", label: "Agents" },
+    { path: "/doctrine", label: "Doctrine" },
+    { path: "/reflections", label: "Reflections" },
+    { path: "/tasks", label: "Tasks" },
+    { path: "/contradictions", label: "Contradictions" },
+    // add more as needed
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
       {/* Header */}
@@ -158,7 +171,22 @@ export default function Home() {
       </header>
 
       {/* Navigation */}
-      <Navigation activeSection={activeSection} onSectionChange={handleSectionChange} />
+      <nav className="bg-slate-800 text-white p-4 shadow flex justify-center gap-6">
+        {sections.map((link) => {
+          const isActive = pathname === link.path;
+          return (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`hover:underline ${
+                isActive ? "text-veritas-200 underline" : "text-gray-300"
+              }`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
+      </nav>
       <SearchBar onSearch={(query) => logInteraction("search", query)} />
 
       {/* Main content */}
