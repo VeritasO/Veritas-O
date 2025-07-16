@@ -56,7 +56,7 @@ export const tasks = pgTable("tasks", {
 // REFLECTIONS
 export const reflections = pgTable("reflections", {
   id: serial("id").primaryKey(),
-  userId: integer("user_id").references(() => users.id).nullable(),
+  userId: integer("user_id").references(() => users.id),
   type: text("type").notNull(),
   content: text("content").notNull(),
   griefTier: griefTierEnum("grief_tier").default("1"),
@@ -75,7 +75,7 @@ export const reflections = pgTable("reflections", {
 export const interactions = pgTable("interactions", {
   id: serial("id").primaryKey(),
   sessionId: text("session_id"),
-  userId: integer("user_id").references(() => users.id).nullable(),
+  userId: integer("user_id").references(() => users.id).notNull(),
   action: text("action").notNull(),
   details: text("details"),
   timestamp: timestamp("timestamp").notNull().defaultNow(),
@@ -119,11 +119,11 @@ export const agents = pgTable("agents", {
 export const rituals = pgTable("rituals", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
-  linkedBook: text("linked_book").nullable(),
+  linkedBook: text("linked_book").default(null),
   performedBy: text("performed_by").notNull(),
   date: timestamp("date").notNull().defaultNow(),
   category: text("category").default("general"),
-  griefTierLinked: griefTierEnum("grief_tier_linked").nullable(),
+  griefTierLinked: griefTierEnum("grief_tier_linked").default(null),
   description: text("description").default(""),
 });
 
@@ -143,7 +143,7 @@ export const reflectionAudits = pgTable("reflection_audits", {
 export const sandboxCases = pgTable("sandbox_cases", {
   id: serial("id").primaryKey(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  createdByUserId: integer("created_by_user_id").references(() => users.id).notNull(false),
+  createdByUserId: integer("created_by_user_id").references(() => users.id).notNull(),
   parties: jsonb("parties").notNull(),
   harmDescription: text("harm_description").notNull(),
   griefTier: griefTierEnum("grief_tier").notNull(),

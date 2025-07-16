@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSubmitReflection } from "@/hooks/useReflections";
 import ReactMarkdown from "react-markdown";
-import { reflectionSchema } from "../lib/validators";
+import { ReflectionSchema } from "../lib/validators";
 
 export default function ReflectionSubmission() {
   const [content, setContent] = useState("");
@@ -13,7 +13,7 @@ export default function ReflectionSubmission() {
     setError(null);
     if (!content.trim()) return;
     try {
-      const parse = reflectionSchema.safeParse({ content });
+      const parse = ReflectionSchema.safeParse({ content });
       if (!parse.success) {
         return setError("Invalid reflection content.");
       }

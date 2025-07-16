@@ -13,7 +13,7 @@ export default function ReflectionAuditPanel({ reflectionId = 1, setReflectionId
 
   // Export handlers
   const exportJSON = () => {
-    const data = auditLogs.data || [];
+    const data = auditLogs.logs || [];
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -24,7 +24,7 @@ export default function ReflectionAuditPanel({ reflectionId = 1, setReflectionId
   };
 
   const exportCSV = () => {
-    const data = auditLogs.data || [];
+    const data = auditLogs.logs || [];
     if (!data.length) return;
     const headers = Object.keys(data[0]);
     const rows = data.map((row: any) => headers.map(h => row[h]).join(","));
@@ -71,11 +71,11 @@ export default function ReflectionAuditPanel({ reflectionId = 1, setReflectionId
       {/* 3. Audit Log View & Export */}
       <div>
         <h3 className="font-semibold mb-2">Audit Log</h3>
-        {auditLogs.isLoading ? (
+        {auditLogs.loading ? (
           <p>Loading audit logs...</p>
         ) : (
           <ul className="space-y-2">
-            {auditLogs.data?.map((log: any) => (
+            {auditLogs.logs?.map((log: any) => (
               <li key={log.id} className="border p-2 rounded bg-gray-50">
                 <span className="font-bold">#{log.reflectionId}</span> | {log.statusBefore} → {log.statusAfter} by {log.changedBy} ({log.reason})
               </li>
@@ -105,12 +105,12 @@ export default function ReflectionAuditPanel({ reflectionId = 1, setReflectionId
       {/* 5. Bias Scan (AEGIS) */}
       <div>
         <h3 className="font-semibold mb-2">Bias Scan (AEGIS)</h3>
-        {contradictions.isLoading ? (
+        {contradictions.loading ? (
           <p>Scanning for bias...</p>
         ) : (
           <ul className="space-y-1">
-            {contradictions.data?.length
-              ? contradictions.data.map((c: any) => (
+            {contradictions.contradictions?.length
+              ? contradictions.contradictions.map((c: any) => (
                   <li key={c.id} className="bg-red-50 p-2 rounded">
                     <span className="font-bold">Issue:</span> {c.issue || c.contradiction || "No details"}
                   </li>

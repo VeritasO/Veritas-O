@@ -3,12 +3,13 @@ import axios from "axios";
 import { ReflectionSchema } from "../../lib/validators";
 import type { ReflectionSchema as ReflectionSchemaType } from "../../lib/validators";
 
+export function useReflections() {
   const [reflections, setReflections] = useState<ReflectionSchemaType[]>([]);
-  const [reflections, setReflections] = useState<ReflectionSchema[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchReflections();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchReflections = async () => {
