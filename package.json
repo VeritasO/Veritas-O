@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
+    "@types/react": "^19.1.8",
     "drizzle-orm": "^0.44.3",
-    "script": "^0.0.12",
+    "react": "^19.1.0",
+    "script": "^0.1.4",
     "security": "^1.0.0"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.18.1"
+    "drizzle-kit": "^0.31.4"
   }
 }
