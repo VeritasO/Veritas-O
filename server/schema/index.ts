@@ -1,5 +1,7 @@
 // Schema index scaffold
 import { pgTable, serial, varchar, text, timestamp, integer, jsonb } from 'drizzle-orm/pg-core';
+export * from "./doctrine_versions";
+
 
 export const reflections = pgTable('reflections', {
   id: serial('id').primaryKey(),

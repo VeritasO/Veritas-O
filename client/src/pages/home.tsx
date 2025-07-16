@@ -16,7 +16,9 @@ import { useReflections } from '../hooks/useReflections';
 import { useAnalytics } from '../hooks/useAnalytics';
 import { useCVTTime } from '../hooks/useCVTTime';
 import { useSection } from '../hooks/useSection';
+import AgentDashboard from "@/pages/agent-dashboard";
 // Placeholder for missing components
+
 const RitualRegistry = () => <div>Ritual Registry (TODO)</div>;
 const RitualSubmission = ({ onSubmit }: any) => <button onClick={() => onSubmit({ name: 'Sample Ritual' })}>Log Ritual (TODO)</button>;
 const ReflectionLog = ({ reflections }: any) => <div>Reflection Log (TODO)</div>;
@@ -100,6 +102,8 @@ const Home: React.FC = () => {
         return <ReflectionAuditPanel />;
       case "symbols":
         return <RitualSuggestionsPanel />;
+      case "agents":
+        return <AgentDashboard />;
       default:
         return <SystemOverview agents={agents} analytics={analytics} />;
     }

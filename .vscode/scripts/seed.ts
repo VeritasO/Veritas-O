@@ -74,6 +74,18 @@ async function main() {
   ]);
   console.log("💬 Reflections seeded.");
 
+  await db.insert(doctrineVersions).values([
+  {
+    book: "Book I – Meaningful Thought",
+    version: "v1.0.0",
+    summary: "Initial doctrine of fairness logic and emotional sovereignty.",
+    updatedAt: new Date(),
+    approvedBy: "JUNO",
+  },
+]);
+console.log("📘 Doctrine versions seeded.");
+
+
   // --- Tasks (Agent duties) ---
   await db.insert(tasks).values([
     { agent: "JUNO", task: "Review doctrinal conflict flagged by MIRRA", priority: "high", context: "Case #4012 / Reflection Loop" },
