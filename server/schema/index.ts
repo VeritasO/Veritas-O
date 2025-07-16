@@ -50,3 +50,90 @@ export const contradictions = pgTable('contradictions', {
   issue: text('issue'),
   timestamp: timestamp('timestamp', { mode: 'date' }),
 });
+
+export const tasks = pgTable('tasks', {
+  id: serial('id').primaryKey(),
+  agent: varchar('agent', { length: 32 }),
+  description: text('description'),
+  status: varchar('status', { length: 16 }),
+  dueDate: timestamp('due_date', { mode: 'date' }),
+});
+
+export const rituals = pgTable('rituals', {
+  id: serial('id').primaryKey(),
+  tier: varchar('tier', { length: 16 }),
+  prompt: text('prompt'),
+});
+
+export const interactions = pgTable('interactions', {
+  id: serial('id').primaryKey(),
+  agentId: integer('agent_id'),
+  content: text('content'),
+  timestamp: timestamp('timestamp', { mode: 'date' }),
+});
+
+export const reflectionAudits = pgTable('reflection_audits', {
+  id: serial('id').primaryKey(),
+  reflectionId: integer('reflection_id').notNull(),
+  previousStatus: varchar('previous_status', { length: 16 }),
+  newStatus: varchar('new_status', { length: 16 }).notNull(),
+  updatedBy: varchar('updated_by', { length: 64 }).notNull(),
+  reason: text('reason'),
+  griefTier: varchar('grief_tier', { length: 16 }),
+  timestamp: timestamp('timestamp').notNull().defaultNow(),
+});
+
+
+
+export const interactions = pgTable('interactions', {
+  id: serial('id').primaryKey(),
+  agentId: integer('agent_id').notNull(),
+  content: text('content').notNull(),
+  timestamp: timestamp('timestamp').notNull().defaultNow(),
+});
+
+export const reflectionStatusEnum = pgTable('reflection_status_enum', {
+  id: serial('id').primaryKey(),
+  status: varchar('status', { length: 16 }).notNull(),
+});
+
+export const griefTierEnum = pgTable('grief_tier_enum', {
+  id: serial('id').primaryKey(),
+  tier: varchar('tier', { length: 16 }).notNull(),
+});
+
+export const agentStatusEnum = pgTable('agent_status_enum', {
+  id: serial('id').primaryKey(),
+  status: varchar('status', { length: 16 }).notNull(),
+});
+
+export const insertInteractionSchema = pgTable('insert_interaction_schema', {
+  agentId: integer('agent_id').notNull(),
+  content: text('content').notNull(),
+});
+
+export const insertRitualSchema = pgTable('insert_ritual_schema', {
+  name: varchar('name', { length: 64 }).notNull(),
+  linkedBook: varchar('linked_book', { length: 64 }).nullable(),
+  performedBy: varchar('performed_by', { length: 64 }).notNull(),
+  date: timestamp('date').notNull().defaultNow(),
+  category: varchar('category', { length: 32 }).default('general'),
+  griefTierLinked: griefTierEnum('grief_tier_linked').nullable(),
+  description: text('description').nullable(),
+});
+
+export const ritualsByTier = {
+  low: [
+    { tier: "low", prompt: "🌾 Take 3 breaths and name what feels gentle in the grief." },
+  ],
+  medium: [
+    { tier: "medium", prompt: "🕯️ Write a letter to the harmed party expressing recognition." },
+  ],
+  high: [
+    { tier: "high", prompt: "🌑 Ritual silence: 10 minutes of stillness before writing any response." },
+  ],
+};
+
+
+
+

@@ -6,8 +6,7 @@
     "build": "vite build",
     "start": "vite preview",
     "drizzle:generate": "drizzle-kit push:pg",
-    "test": "jest",
-    "seed": "ts-node server/seed.ts"
+    "test": "jest"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.6.0",
