@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "../lib/queryClient";
-import { Card } from "../components/ui/card";
+
+import { Card } from "../components/ui/card";   // ✅ use lowercase filename for file-based imports
 import { Button } from "../components/ui/button";
 
 type Doctrine = {
@@ -15,20 +16,22 @@ type Doctrine = {
 export default function DoctrineHistory() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const { data: doctrines, isLoading } = useQuery({
+  const { data: doctrines = [], isLoading, isError } = useQuery<Doctrine[]>({
     queryKey: ["/api/doctrine"],
     queryFn: () => apiRequest("GET", "/api/doctrine"),
   });
 
-  const selectedDoctrine = doctrines?.find((d: Doctrine) => d.id === selectedId);
+  const selectedDoctrine = doctrines.find((d) => d.id === selectedId);
 
   if (isLoading) return <p className="text-slate-500">Loading doctrines...</p>;
+  if (isError) return <p className="text-red-500">Error loading doctrines.</p>;
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-slate-800">📜 Doctrine History</h1>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {doctrines?.map((d: Doctrine) => (
+        {doctrines.map((d) => (
           <Card key={d.id} className="p-4">
             <div className="text-sm text-slate-600">{d.version} – {d.date}</div>
             <div className="text-lg font-semibold">{d.title}</div>

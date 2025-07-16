@@ -4,7 +4,7 @@ export function useMemoryAudit(reflections: Array<{ createdAt: string; agentId: 
   return useMemo(() => {
     // Example: Find gaps > 1 day between reflections
     const sorted = [...reflections].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-    const gaps = [];
+    const gaps: Array<{ from: { createdAt: string; agentId: string; content: string }; to: { createdAt: string; agentId: string; content: string }; gapMs: number }> = [];
     for (let i = 1; i < sorted.length; i++) {
       const prev = new Date(sorted[i - 1].createdAt).getTime();
       const curr = new Date(sorted[i].createdAt).getTime();

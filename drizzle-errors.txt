@@ -1,0 +1,13 @@
+No config path provided, using default 'drizzle.config.ts'
+Reading config file '/workspaces/Veritas-O/drizzle.config.ts'
+ReferenceError: app is not defined
+    at Object.<anonymous> (/workspaces/Veritas-O/server/schema/index.ts:5:1)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (/workspaces/Veritas-O/node_modules/drizzle-kit/bin.cjs:14313:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.newLoader [as .ts] (/workspaces/Veritas-O/node_modules/drizzle-kit/bin.cjs:14317:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1487:12)

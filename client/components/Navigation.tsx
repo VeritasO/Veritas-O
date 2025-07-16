@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 // ✅ Ensure PascalCase and correct folder nesting
-import Navigation from "@/components/Navigation";
 import SearchBar from "@/components/SearchBar";
 import SystemOverview from "@/components/sections/SystemOverview";
-import BooksLibrary from "@/components/sections/BooksLibrary";
+// import BooksLibrary from "@/components/sections/BooksLibrary";
 import AgentsDirectory from "@/components/sections/AgentsDirectory";
 import CVTTimeDisplay from "@/components/sections/CVTTimeDisplay";
 import DoctrineManagement from "@/components/sections/DoctrineManagement";
