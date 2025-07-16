@@ -1,0 +1,139 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Book I: Foundations of Meaning",
+      "summary": "Explores the Doctrine of Meaningful Thought and its role in truth-based reconciliation."
+    },
+    {
+      "id": 2,
+      "title": "Book II: Emotional Sovereignty",
+      "summary": "Establishes rights of internal experience, boundaries, and grief-integrated justice."
+    },
+    {
+      "id": 3,
+      "title": "Book III: Time and Reversibility",
+      "summary": "Introduces the CVT clock and time-aware logic for restoration."
+    },
+    {
+      "id": 4,
+      "title": "Book IV: The Grief Loop",
+      "summary": "Documents cyclical harm, interruption mechanisms, and symbolic reintegration."
+    },
+    {
+      "id": 5,
+      "title": "Book V: Restoration First",
+      "summary": "Codifies non-carceral logic, emphasizing proportionate and land-based rebalancing."
+    }
+  ,
+  {
+    "id": 1,
+    "title": "Book I: Foundations of Meaning",
+    "summary": "Introduces the Doctrine of Meaningful Thought as the prime directive of all justice inquiries, defining meaning as both emergent and evidentiary."
+  },
+  {
+    "id": 2,
+    "title": "Book II: Emotional Sovereignty",
+    "summary": "Affirms the sanctity of internal experience, protects emotional boundaries, and ensures that all responses are interpreted within the context of sovereign affect."
+  },
+  {
+    "id": 3,
+    "title": "Book III: Time and Reversibility",
+    "summary": "Defines the CVT Clock, restoring time agency to those impacted by harm and establishing time-aware proportionality in justice decisions."
+  },
+  {
+    "id": 4,
+    "title": "Book IV: The Grief Loop",
+    "summary": "Explains cyclical harm dynamics and introduces mechanisms to surface and interrupt unresolved grief through symbolic and structural interventions."
+  },
+  {
+    "id": 5,
+    "title": "Book V: Restoration First",
+  "summary": "Codifies a restoration-first mandate, eliminating carceral responses and mandating reintegrative repair calibrated to harm depth and context."
+},
+{
+  "id": 6,
+  "title": "Book VI: Contradiction and Coherence",
+  "summary": "Outlines protocols for identifying, logging, and metabolizing contradictions as essential steps in doctrinal evolution."
+},
+{
+  "id": 7,
+  "title": "Book VII: Narrative Truth",
+  "summary": "Elevates lived experience and narrative coherence as valid forms of truth, especially in the absence of institutional records."
+},
+{
+  "id": 8,
+  "title": "Book VIII: Symbolic Equivalence",
+  "summary": "Introduces the use of symbolic acts, gestures, and offerings to restore fractured meaning across time, identity, and space."
+},
+{
+  "id": 9,
+  "title": "Book IX: Harm Scales and Grief Tiers",
+  "summary": "Defines multidimensional harm recognition frameworks that blend intensity, duration, lineage, and grief-layer complexity."
+},
+{
+  "id": 10,
+  "title": "Book X: Consent and Reconciliation",
+  "summary": "Asserts that reconciliation is not mandatory; establishes layered consent as the basis for any tribunal-led or symbolic resolution."
+},
+{
+  "id": 11,
+  "title": "Book XI: Land and Lineage",
+  "summary": "Binds justice to geography and ancestry, requiring restoration to be mapped through land, legacy, and lineal grief acknowledgment."
+},
+{
+  "id": 12,
+  "title": "Book XII: Bias and Audit",
+  "summary": "Details ongoing internal and external audit requirements to monitor bias, algorithmic drift, and systemic opacity."
+},
+{
+  "id": 13,
+  "title": "Book XIII: Memory and Forgetting",
+  "summary": "Establishes collective memory as an active process, governed by POLYMNIA, with protocols for protected forgetting and encoded truthkeeping."
+},
+{
+  "id": 14,
+  "title": "Book XIV: Rites and Transition",
+  "summary": "Details VESTA’s protocols for symbolic rites, closures, and system transitions, including transformation after systemic contradictions."
+},
+{
+  "id": 15,
+  "title": "Book XV: System Evolution",
+  "summary": "Describes conditions for system evolution, including MIRRA-triggered contradiction thresholds and the emergence of new Books."
+  }
+],
+"agents": [
+    {
+      "name": "JUNO",
+      "status": "active"
+    },
+    {
+      "name": "TEMPUS",
+      "status": "active"
+    },
+    {
+      "name": "AEGIS",
+      "status": "active"
+    },
+    {
+      "name": "LYRA",
+      "status": "active"
+    },
+    {
+      "name": "THALEA",
+      "status": "active"
+    },
+    {
+      "name": "VESTA",
+      "status": "active"
+    },
+    {
+      "name": "MIRRA",
+      "status": "active"
+    },
+    {
+      "name": "POLYMNIA",
+      "status": "active"
+    }
+  ]
+}

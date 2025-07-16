@@ -1,13 +1,13 @@
 import { useState } from "react";
 import TempusClock from "./TempusClock";
 import { GriefTierBadge } from "./GriefTierBadge";
-import { useAuditLogs } from "@/hooks/useAuditLogs";
+import { useAuditLogs } from "../hooks/useAuditLogs";
 import { useSymbolicSuggestions } from "@/hooks/useSymbolicSuggestions";
-import { useContradictions } from "@/hooks/useContradictions";
+import { useContradictions } from "../hooks/useContradictions";
 
 export default function ReflectionAuditPanel({ reflectionId = 1, setReflectionId }: { reflectionId?: number; setReflectionId?: (id: number) => void }) {
   const [status, setStatus] = useState<string>("pending");
-  const auditLogs = useAuditLogs(reflectionId);
+  const auditLogs = useAuditLogs();
   const rituals = useSymbolicSuggestions("high");
   const contradictions = useContradictions();
 

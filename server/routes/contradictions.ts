@@ -1,38 +1,28 @@
 import { Router } from "express";
 import { db } from "../db";
-import { reflections, auditTrail, contradictions } from "../schema";
+import { contradictions } from "../schema/models/contradictions";
 
 const router = Router();
 
-// GET contradiction logs (admin/system only)
-router.get("/logs", async (_req, res) => {
-  const logs = await db.select().from(contradictions);
-  res.json(logs);
+// GET all contradictions
+router.get("/", async (req, res) => {
+  const all = await db.select().from(contradictions).orderBy(contradictions.createdAt.desc());
+  res.json(all);
 });
 
-// POST: scan for contradictions in a reflection
-router.post("/scan", async (req, res) => {
-  const { reflectionId } = req.body;
-  // Example: scan audit trail for status/time inconsistencies
-  const trail = await db.select().from(auditTrail).where({ reflectionId });
-  // Simple logic: flag if status reverses without grief transition
-  let contradiction = null;
-  for (let i = 1; i < trail.length; i++) {
-    if (trail[i].status === 'closed' && trail[i-1].status === 'pending') {
-      contradiction = {
-        reflectionId,
-        issue: 'Closed after pending without grief transition',
-        timestamp: trail[i].cvtTimestamp
-      };
-      break;
-    }
+// POST a new contradiction
+router.post("/", async (req, res) => {
+  const { title, description, severity } = req.body;
+  if (!title || !description || !severity) {
+    return res.status(400).json({ error: "Missing required fields" });
   }
-  if (contradiction) {
-    await db.insert(contradictions).values(contradiction);
-    res.status(200).json({ flagged: true, contradiction });
-  } else {
-    res.status(200).json({ flagged: false });
-  }
+  const [entry] = await db.insert(contradictions).values({
+    title,
+    description,
+    severity,
+    createdAt: new Date(),
+  }).returning();
+  res.status(201).json(entry);
 });
 
 export default router;

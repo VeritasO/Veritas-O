@@ -123,7 +123,7 @@ export const rituals = pgTable("rituals", {
   performedBy: text("performed_by").notNull(),
   date: timestamp("date").notNull().defaultNow(),
   category: text("category").default("general"),
-  griefTierLinked: griefTierEnum("grief_tier_linked").default(null),
+  griefTierLinked: griefTierEnum("grief_tier_linked").nullable(),
   description: text("description").default(""),
 });
 

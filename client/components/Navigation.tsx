@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-// FIX: Use correct import for Navigation component
+// ✅ Ensure PascalCase and correct folder nesting
 import Navigation from "@/components/Navigation";
-
-// FIX: Use PascalCase for all React component imports and verify file names
 import SearchBar from "@/components/SearchBar";
 import SystemOverview from "@/components/sections/SystemOverview";
 import BooksLibrary from "@/components/sections/BooksLibrary";
@@ -13,19 +11,19 @@ import CVTTimeDisplay from "@/components/sections/CVTTimeDisplay";
 import DoctrineManagement from "@/components/sections/DoctrineManagement";
 import ReflectionSubmission from "@/components/sections/ReflectionSubmission";
 import SystemAnalytics from "@/components/sections/SystemAnalytics";
-import ReflectionAuditPanel from "@/components/ReflectionAuditPanel";
+import ReflectionAuditPanel from "@/components/sections/ReflectionAuditPanel";
 import SymbolicSuggestions from "@/components/SymbolicSuggestions";
 import ContradictionMonitor from "@/components/ContradictionMonitor";
 import AgentTaskComposer from "@/components/AgentTaskComposer";
+
+// ✅ Hook & lib imports
 import { useToast } from "@/hooks/useToast";
 import { apiRequest } from "@/lib/queryClient";
-
-// Optionally, custom hooks if implemented
 import { useAuditLogs } from "@/hooks/useAuditLogs";
 import { useSymbolicSuggestions } from "@/hooks/useSymbolicSuggestions";
 import { useContradictions } from "@/hooks/useContradictions";
 
-// PATCH: Add fallback error boundary for main content
+// ✅ Optional ErrorBoundary for safe rendering
 import { ErrorBoundary } from "react-error-boundary";
 
 export type Section =
@@ -41,7 +39,7 @@ export type Section =
   | "contradictions"
   | "tasks";
 
-function MainContent({ renderActiveSection }: { renderActiveSection: () => JSX.Element }) {
+function MainContent({ renderActiveSection }: { renderActiveSection: () => React.ReactElement }) {
   return (
     <ErrorBoundary fallback={<div className="text-red-600">Something went wrong in this section.</div>}>
       <div className="animate-fade-in">{renderActiveSection()}</div>

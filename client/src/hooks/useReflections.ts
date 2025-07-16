@@ -1,49 +1,49 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import { apiRequest } from "@/lib/queryClient";
-// import { Reflection, InsertReflection } from "@shared/schema";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { ReflectionSchema } from "../../lib/validators";
+import type { ReflectionSchema as ReflectionSchemaType } from "../../lib/validators";
 
-export function useReflections() {
-  return useQuery<any[]>({
-    queryKey: ["/api/reflections"],
-    queryFn: () => apiRequest("GET", "/api/reflections"),
-    refetchInterval: 60000,
-  });
-}
+  const [reflections, setReflections] = useState<ReflectionSchemaType[]>([]);
+  const [reflections, setReflections] = useState<ReflectionSchema[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export function useSubmitReflection() {
-  const queryClient = useQueryClient();
-  return useMutation<any, Error, any>({
-    mutationFn: (newReflection) =>
-      apiRequest("POST", "/api/reflections", newReflection),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/reflections"] });
-    },
-    onError: (error: any) => {
-      alert("🌀 Reflection submission failed: " + error.message);
-    },
-  });
-}
+  useEffect(() => {
+    fetchReflections();
+  }, []);
 
-export function useUpdateReflectionStatus() {
-  const queryClient = useQueryClient();
-  return useMutation<any, Error, { id: number, newStatus: string, changedBy: string, reason?: string }>({
-    mutationFn: ({ id, newStatus, changedBy, reason }) =>
-      apiRequest("POST", `/api/reflections/${id}/status`, { newStatus, changedBy, reason }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/reflections"] });
-      queryClient.invalidateQueries({ queryKey: ["/api/reflections/:id/audits"] });
-    },
-    onError: (error: any) => {
-      alert("⚠️ Reflection status update failed: " + error.message);
-    },
-  });
-}
+  const fetchReflections = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("/api/reflections");
+      setReflections(res.data);
+    } catch (err) {
+      console.error("Error fetching reflections", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-export function useReflectionAudits(reflectionId: number) {
-  return useQuery({
-    queryKey: [`/api/reflections/${reflectionId}/audits`],
-    queryFn: () => apiRequest("GET", `/api/reflections/${reflectionId}/audits`),
-    enabled: !!reflectionId,
-  });
+  const createReflection = async (newReflection: { agentId: string; content: string; griefTier?: number }) => {
+    // Validate before sending
+    const validation = ReflectionSchema.safeParse({
+      ...newReflection,
+      createdAt: new Date().toISOString(),
+    });
+    if (!validation.success) {
+      console.error("Reflection validation failed", validation.error);
+      return;
+    }
+    try {
+      const res = await axios.post("/api/reflections", validation.data);
+      setReflections(prev => [res.data, ...prev]);
+    } catch (err) {
+      console.error("Error creating reflection", err);
+    }
+  };
+
+  return {
+    reflections,
+    loading,
+    createReflection,
+  };
 }

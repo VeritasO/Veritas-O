@@ -1,59 +1,71 @@
-import { useState } from "react";
-import { apiRequest } from "@/lib/queryClient";
+import React, { useState } from "react";
+import { useAgentTasks } from "@/hooks/useAgentTasks";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+
+const STATUS_OPTIONS = ["pending", "in-progress", "completed"];
+const URGENCY_OPTIONS = ["low", "medium", "high"];
 
 export default function AgentTaskComposer() {
-  const [agent, setAgent] = useState("");
-  const [task, setTask] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "done">("idle");
+  const [agentId, setAgentId] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState(STATUS_OPTIONS[0]);
+  const [urgency, setUrgency] = useState(URGENCY_OPTIONS[0]);
+  const { addTask, isLoading } = useAgentTasks();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("submitting");
-
-    try {
-      await apiRequest("POST", "/api/tasks", {
-        agent,
-        task,
-      });
-      setStatus("done");
-      setAgent("");
-      setTask("");
-    } catch (error) {
-      console.error("Failed to assign task:", error);
-      setStatus("idle");
+    if (agentId && description) {
+      addTask({ agentId, description, status, urgency });
+      setDescription("");
     }
   };
 
   return (
-    <div className="bg-white border border-slate-200 p-4 rounded shadow-sm max-w-xl mx-auto">
-      <h3 className="text-lg font-bold mb-2">Assign Task to Agent</h3>
-      <form onSubmit={handleSubmit} className="space-y-2">
+    <Card className="p-4">
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Agent name (e.g., LYRA)"
-          value={agent}
-          onChange={(e) => setAgent(e.target.value)}
-          className="w-full border border-slate-300 rounded px-3 py-2 text-sm"
-          required
+          placeholder="Agent ID"
+          value={agentId}
+          onChange={(e) => setAgentId(e.target.value)}
+          className="mb-2 p-2 border rounded w-full"
         />
         <textarea
           placeholder="Task description"
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-          className="w-full border border-slate-300 rounded px-3 py-2 text-sm"
-          required
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="mb-2 p-2 border rounded w-full"
         />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
-          disabled={status === "submitting"}
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          className="mb-2 p-2 border rounded w-full"
         >
-          {status === "submitting" ? "Assigning..." : "Assign Task"}
-        </button>
-        {status === "done" && (
-          <p className="text-green-700 text-xs">Task successfully assigned.</p>
-        )}
+          {STATUS_OPTIONS.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
+        <select
+          value={urgency}
+          onChange={(e) => setUrgency(e.target.value)}
+          className="mb-2 p-2 border rounded w-full"
+        >
+          {URGENCY_OPTIONS.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
+        <Button
+          type="submit"
+          disabled={isLoading || !agentId || !description}
+        >
+          Assign Task
+        </Button>
       </form>
-    </div>
+    </Card>
   );
 }

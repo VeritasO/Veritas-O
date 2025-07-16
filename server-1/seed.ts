@@ -1,23 +1,19 @@
 import { db } from "./db";
 import { agents, canonicalBooks } from "./schema";
+const AGENT_STATUSES = ["active", "inactive", "pending"];
 import seedData from "./seed.json";
-
-const ALLOWED_AGENT_STATUSES = ["active", "inactive", "pending"];
 
 async function seedDatabase() {
   try {
     console.log("🌱 Seeding Canonical Books...");
-    const allBooks = seedData.flatMap((item: any) => item.books ?? []);
-    await db.insert(canonicalBooks).values(allBooks);
+    await db.insert(canonicalBooks).values(seedData.books);
     console.log("📚 Books seeded.");
 
     console.log("🌱 Seeding Agents...");
-    const allAgents = seedData.flatMap((item: any) => item.agents ?? []);
-    const agentsData = allAgents.map(agent => ({
+    const allowedStatuses = AGENT_STATUSES;
+    const agentsData = seedData.agents.map(agent => ({
       ...agent,
-      status: ALLOWED_AGENT_STATUSES.includes(agent.status)
-        ? agent.status
-        : "active"
+      status: allowedStatuses.includes(agent.status) ? agent.status : "active"
     }));
     await db.insert(agents).values(agentsData);
     console.log("🧠 Agents seeded.");

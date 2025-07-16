@@ -1,11 +1,9 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
-import * as schema from "./schema";
+import { drizzle } from "drizzle-orm/neon-serverless";
+import { Pool } from "@neondatabase/serverless";
+import * as schema from "./schema/models";
 
-import type { NeonQueryFunction } from "@neondatabase/serverless";
-
-const sql = neon(process.env.DATABASE_URL!) as NeonQueryFunction<boolean, boolean>;
-export const db = drizzle(sql, { schema });
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+export const db = drizzle(pool, { schema });
 
 // DB connection scaffold
 // Add your database connection logic here
