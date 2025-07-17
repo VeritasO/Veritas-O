@@ -1,55 +1,45 @@
 import React from "react";
-import { useReflections } from "../hooks/useReflections";
-import { useCVTClock } from "@/hooks/useCVTClock";
-
-function flagReflection(reflection: { content: string }) {
-  const griefWords = ["stuck", "hopeless", "irreversible", "no way out", "lost", "despair"];
-  const contradictionPatterns = [
-    /\bbut\b/i, /\bhowever\b/i, /\bcontradicts\b/i, /\bconflict\b/i, /\bparadox\b/i,
-  ];
-  const grief = griefWords.some(word => reflection.content.toLowerCase().includes(word));
-  const contradiction = contradictionPatterns.some(pattern => pattern.test(reflection.content));
-  return { grief, contradiction };
-}
+import { useReflections } from "@/hooks/useReflections";
+import { formatCVT } from "@/lib/cvt";
 
 export default function ReflectionsFeed() {
-  const { data: reflections = [], isLoading } = useReflections({ refetchInterval: 5000 });
-  const cvtTime = useCVTClock();
+  const { data, isLoading } = useReflections();
 
-  if (isLoading) return <div className="text-slate-500">Loading reflections...</div>;
+  if (isLoading) return <div className="text-sm text-gray-500">Loading reflections...</div>;
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="p-4 rounded-xl bg-yellow-100 text-yellow-800 shadow-md">
+        No reflections yet. Invite LYRA with a story.
+      </div>
+    );
+  }
 
   return (
-    <section className="bg-slate-50 p-4 rounded shadow">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Live Reflections Feed</h2>
-        <span className="text-xs text-indigo-600">CVT: {cvtTime}</span>
-      </div>
-      <ul className="space-y-3">
-        {reflections.map(ref => {
-          const flags = flagReflection(ref);
-          return (
-            <li
-              key={ref.id}
-              className={`p-3 rounded border ${
-                flags.grief
-                  ? "border-yellow-500 bg-yellow-50"
-                  : flags.contradiction
-                  ? "border-red-500 bg-red-50"
-                  : "border-slate-200"
-              }`}
-            >
-              <div className="text-sm text-slate-600">{ref.timestamp}</div>
-              <div className="font-medium">{ref.content}</div>
-              {flags.grief && (
-                <span className="text-yellow-700 text-xs font-bold ml-2">Grief Event</span>
-              )}
-              {flags.contradiction && (
-                <span className="text-red-700 text-xs font-bold ml-2">Contradiction</span>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </section>
+    <div className="space-y-4 p-4 max-h-[600px] overflow-y-auto">
+      {data.map((r) => {
+        const isGrief = /(hopeless|irreversible|lost|stuck|no way)/i.test(r.content);
+        return (
+          <div
+            key={r.id}
+            className={`rounded-xl p-4 shadow transition-all duration-200 border ${
+              isGrief
+                ? "bg-red-100 border-red-300 text-red-700"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
+          >
+            <div className="text-xs text-gray-500 mb-1">
+              {formatCVT(r.createdAt)} · Agent: {r.agentId || "UNKNOWN"}
+            </div>
+            <div className="whitespace-pre-wrap text-sm">{r.content}</div>
+            {isGrief && (
+              <div className="mt-2 text-xs text-red-500 font-semibold animate-pulse">
+                ⚠️ Grief loop detected
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 }
