@@ -1,5 +1,5 @@
 import React from "react";
-import { useReflections } from "@/hooks/useReflections";
+import { useReflections } from "../hooks/useReflections";
 import { useCVTClock } from "@/hooks/useCVTClock";
 
 function flagReflection(reflection: { content: string }) {

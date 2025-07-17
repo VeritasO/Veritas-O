@@ -21,6 +21,9 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.18.1"
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "drizzle-kit": "^0.18.1",
+    "husky": "^9.1.7"
   }
 }
