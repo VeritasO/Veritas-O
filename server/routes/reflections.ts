@@ -6,6 +6,8 @@ import { reflections } from "../schema/models/reflections";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { logInteraction } from "../routes/audit"; // Ensure this exists
+import { evaluateGriefLoop } from "../utils/griefPatterns";
+import { detectContradiction } from "../utils/contradictionTriggers";
 
 export const reflectionsRouter = express.Router();
 
@@ -63,6 +65,9 @@ reflectionsRouter.post("/", async (req: Request, res: Response) => {
   } = parse.data;
 
   try {
+    const grief = evaluateGriefLoop(content);
+    const contradiction = detectContradiction(content);
+
     const [result] = await db
       .insert(reflections)
       .values({
@@ -73,6 +78,8 @@ reflectionsRouter.post("/", async (req: Request, res: Response) => {
         status,
         reviewedBy,
         timestamp: timestamp || new Date().toISOString(),
+        grief,
+        contradiction
       })
       .returning();
 
@@ -90,6 +97,14 @@ reflectionsRouter.post("/", async (req: Request, res: Response) => {
     // if (priority === "low" && content.includes("urgent")) {
     //   triggerMirraAudit(result.id, content, priority);
     // }
+
+    // Optionally trigger ritual or log contradiction
+    if (grief) {
+      // trigger ritual logic here
+    }
+    if (contradiction) {
+      // log contradiction logic here
+    }
 
     res.status(201).json(result);
   } catch (err) {
