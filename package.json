@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "ts-node server/index.ts",
+    "start": "vite preview",
     "drizzle:generate": "drizzle-kit push:pg",
-    "test": "jest"
+    "test": "jest",
+    "seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
@@ -16,10 +17,10 @@
     "dotenv": "^17.2.0",
     "drizzle-orm": "^0.44.3",
     "react": "^19.1.0",
-    "script": "^0.1.4",
-    "security": "^1.0.0"
+    "react-error-boundary": "^6.0.0",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.4"
+    "drizzle-kit": "^0.18.1"
   }
 }

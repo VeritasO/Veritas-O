@@ -1,6 +1,6 @@
 // Build a form to submit a new reflection with type, content, priority, and related areas
 import React, { useState } from "react";
-import { useReflections } from "@/hooks/useReflections";
+import { useReflections } from "../../hooks/useReflections";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,7 +10,7 @@ type ReflectionSubmissionProps = {
 };
 
 const ReflectionSubmission: React.FC<ReflectionSubmissionProps> = ({ agentId }) => {
-  const { createReflection, refresh } = useReflections();
+  const { createReflection } = useReflections();
   const [content, setContent] = useState("");
   const [griefTier, setGriefTier] = useState(1);
   const [submitting, setSubmitting] = useState(false);
@@ -22,7 +22,7 @@ const ReflectionSubmission: React.FC<ReflectionSubmissionProps> = ({ agentId }) 
     setContent("");
     setGriefTier(1);
     setSubmitting(false);
-    refresh();
+    // Optionally, trigger a refresh here if needed, e.g., by updating local state or refetching reflections.
   };
 
   return (

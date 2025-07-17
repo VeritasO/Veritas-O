@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 // ✅ Ensure PascalCase and correct folder nesting
 import SearchBar from "@/components/SearchBar";
 import SystemOverview from "@/components/sections/SystemOverview";
-// import BooksLibrary from "@/components/sections/BooksLibrary";
+import BooksLibrary from "@/components/sections/BooksLibrary";
 import AgentsDirectory from "@/components/sections/AgentsDirectory";
 import CVTTimeDisplay from "@/components/sections/CVTTimeDisplay";
 import DoctrineManagement from "@/components/sections/DoctrineManagement";

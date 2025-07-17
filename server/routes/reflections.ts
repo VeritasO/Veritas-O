@@ -1,26 +1,41 @@
+// server/routes/reflections.ts
+
 import express, { Request, Response } from "express";
 import { db } from "../db";
 import { reflections } from "../schema/models/reflections";
 import { z } from "zod";
+import { eq, and } from "drizzle-orm";
+import { logInteraction } from "../routes/audit"; // Ensure this exists
 
 export const reflectionsRouter = express.Router();
 
-// Schema validation using zod
+// Zod validation schema
 const reflectionSchema = z.object({
+  type: z.string().min(2),
   content: z.string().min(5, "Reflection must be at least 5 characters"),
-  griefTier: z.union([z.string(), z.number()]), // Accepts string or number for flexibility
-  submittedBy: z.string().optional(), // Optional for anonymous reflections
-  cvtTimestamp: z.string().optional(), // If not provided, system will generate it
+  priority: z.enum(["low", "normal", "high"]).optional(),
+  relatedAreas: z.array(z.string()).optional(),
+  status: z.string().optional(),
+  reviewedBy: z.string().optional(),
+  timestamp: z.string().optional(),
 });
 
-// GET: fetch all reflections (optionally filter by griefTier)
+// GET: By ID or filter by status, type, reviewedBy, etc.
 reflectionsRouter.get("/", async (req: Request, res: Response) => {
-  const { griefTier } = req.query;
-
+  const { id, status, type, reviewedBy, priority } = req.query;
   try {
-    const query = griefTier
-      ? db.select().from(reflections).where(reflections.griefTier.eq(griefTier))
-      : db.select().from(reflections);
+    let query = db.select().from(reflections);
+
+    const filters = [];
+    if (id) filters.push(eq(reflections.id, Number(id)));
+    if (status) filters.push(eq(reflections.status, String(status)));
+    if (type) filters.push(eq(reflections.type, String(type)));
+    if (reviewedBy) filters.push(eq(reflections.reviewedBy, String(reviewedBy)));
+    if (priority) filters.push(eq(reflections.priority, String(priority)));
+
+    if (filters.length) {
+      query = query.where(and(...filters));
+    }
 
     const results = await query;
     res.status(200).json(results);
@@ -30,25 +45,51 @@ reflectionsRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// POST: submit a new reflection
+// POST: Submit a new reflection, log audit, trigger MIRRA loop (future)
 reflectionsRouter.post("/", async (req: Request, res: Response) => {
   const parse = reflectionSchema.safeParse(req.body);
   if (!parse.success) {
     return res.status(400).json({ error: parse.error.format() });
   }
 
-  const { content, griefTier, submittedBy, cvtTimestamp } = parse.data;
+  const {
+    type,
+    content,
+    priority = "normal",
+    relatedAreas = [],
+    status = "pending",
+    reviewedBy = "JUNO",
+    timestamp,
+  } = parse.data;
 
   try {
     const [result] = await db
       .insert(reflections)
       .values({
+        type,
         content,
-        griefTier,
-        submittedBy,
-        cvtTimestamp: cvtTimestamp || new Date().toISOString(),
+        priority,
+        relatedAreas,
+        status,
+        reviewedBy,
+        timestamp: timestamp || new Date().toISOString(),
       })
       .returning();
+
+    // Log submission as a system action
+    await logInteraction({
+      action: "reflection_submitted",
+      reflectionId: result.id,
+      user: reviewedBy,
+      timestamp: result.timestamp,
+      meta: { type, priority, status, relatedAreas }
+    });
+
+    // TODO: Trigger MIRRA loop audit if content contradicts priority
+    // Example placeholder:
+    // if (priority === "low" && content.includes("urgent")) {
+    //   triggerMirraAudit(result.id, content, priority);
+    // }
 
     res.status(201).json(result);
   } catch (err) {
