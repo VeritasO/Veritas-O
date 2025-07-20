@@ -1,0 +1,16 @@
+{
+  "name": "Veritas-O Agent Management",
+  "short_name": "Veritas-O",
+  "description": "Advanced multi-agent system for knowledge management and doctrinal analysis",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#3B82F6",
+  "icons": [
+    {
+      "src": "/veritas-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
